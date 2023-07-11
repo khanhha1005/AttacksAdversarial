@@ -124,10 +124,6 @@ if __name__ == "__main__":
 
                 #if attack failed with given epsilon value, increase epsilon
                 if (attack_success_count / attack_fail_count < attack_success_freq_threshold):
-                    # print(str(attack_success_count) + '/' + str(attack_fail_count) 
-                    #         + ' attacks succeeded with epsilon=' + str(epsilon)
-                    #         + '. This is below threshold (' + str(attack_success_freq_threshold) 
-                    #         + '). Continuing...')
                     epsilon += epsilon_delta
             #if epsilon is larger than max_epsilon_value, the attack has failed 
             else: 
