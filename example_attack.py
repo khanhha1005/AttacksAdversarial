@@ -15,8 +15,8 @@ from PIL import Image
 if __name__ == "__main__":
     truth_file = 'data/wider_face_split/wider_face_train_bbx_gt.txt'
     detector_dict = {'hog':dlib.get_frontal_face_detector()} 
-    num_imgs = 200
-    img_input_dir = '/content/hideface/data/WIDER_train'
+    num_imgs = 350
+    img_input_dir = 'data/WIDER_train'
     img_paths = utils.get_img_paths(img_input_dir, num_imgs)
     output_dir = 'data/attack_example'
     attack_record_filename = 'performance_list.csv'
