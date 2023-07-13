@@ -13,7 +13,6 @@ from PIL import Image
 
 
 if __name__ == "__main__":
-    truth_file = 'data/wider_face_split/wider_face_train_bbx_gt.txt'
     detector_dict = {'hog':dlib.get_frontal_face_detector()} 
     num_imgs = 1000
     img_input_dir = 'data/WIDER_train'
@@ -56,16 +55,13 @@ if __name__ == "__main__":
                     tunnel_dict, 
                     )
             except ValueError as e: 
+                attacks.create_noisy_image(img_path,output_dir)
                 print(e)
                 continue
-            # box_height = image_labels.true_box_list[0].height
-            # box_width = image_labels.true_box_list[0].width
             performance_dict = {
                 'img_num':img_num,
                 'epsilon':-1,
                 'img_size':image_labels.img_shape[0]*image_labels.img_shape[1],
-                # 'true_box_size':box_height * box_width,
-                # 'truth_iou_no_noise':truth_iou_no_noise,
                 'truth_iou_noise_avg':-1,
                 'ssim_avg':-1}
             epsilon = epsilon_start_value
@@ -91,14 +87,13 @@ if __name__ == "__main__":
                     if (len(found_boxes) == 0):
                         truth_iou_noise = 0
                     else:
-                        # true_box = image_labels.true_box_list[0]
                         found_box = found_boxes[0]
-                        # truth_iou_noise = true_box.iou(found_box)
-                        # truth_iou_noise_avg += truth_iou_noise / n_attack_tests
+
                     #if you find no faces or the truth-found face IoU is small, the test attack succeeded
                     if len(found_boxes) == 0 :
                         attack_success_count += 1 
                     attack_fail_count += 1
+
                 #if attack succeed in enough tests, write files as output and report success
                 if (attack_fail_count == 0 
                     or attack_success_count / attack_fail_count >= attack_success_freq_threshold):
@@ -119,13 +114,13 @@ if __name__ == "__main__":
                             multichannel=True)
                     performance_dict['ssim_avg'] = ssim_avg / n_attack_tests
                     break
-
                 #if attack failed with given epsilon value, increase epsilon
                 if (attack_success_count / attack_fail_count < attack_success_freq_threshold):
                     epsilon += epsilon_delta
-            #if epsilon is larger than max_epsilon_value, the attack has failed 
             else: 
                 print('Noise attack failed')
+                attacks.create_noisy_image(img_path,output_dir)
+
                 performance_dict['epsilon'] = -1
                 performance_dict['truth_iou_noise_avg'] = -1
                 performance_dict['ssim_avg'] = -1

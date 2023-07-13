@@ -14,14 +14,11 @@ class ImageLabels:
     Attributes:
         img_path: the path to the image
         img_shape: a tuple giving the image shape (height,width,channels)
-        true_box_list: a list of ground truth FaceBox objects
         found_box_dict: a dictionary of detector names and found box lists prior to attack 
         **kwargs: arguments for describing the attack applied (ex: noise_epsilon)
         drawn_images: a list of file paths for images drawn using draw() method
     Methods:
         add_detector_labels: given a detector_dict, set the found_box_dict and return
-        add_truth_labels: given a truth file, set the truth_box_list and return
-        add_all_labels: given a truth file and detector_dict, set relevant attributes and return
         draw_images: drawn image(s) with available boxes and set drawn_images attribute
         delete_drawn_images: delete all images in drawn_images list and set list to empty
     """
