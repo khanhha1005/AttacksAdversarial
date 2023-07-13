@@ -12,3 +12,4 @@
         epsilon_start_value = 16
         max_epsilon_value = 240
         epsilon_delta = 16
+        num_imgs = 1000
