@@ -50,13 +50,11 @@ if __name__ == "__main__":
             print('Testing Image: ' + img_num + '\t(' + str(count) + '/' + str(num_imgs) + ')')
             try: 
                 image_labels = utils.test_image(
-                    img_path, 
-                    truth_file, 
+                    img_path,  
                     detector_dict,
-                    detector_name,
-                    iou_cutoff_value, 
+                    detector_name, 
                     tunnel_dict, 
-                    output_dir)
+                    )
             except ValueError as e: 
                 print(e)
                 continue

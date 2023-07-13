@@ -113,7 +113,7 @@ def test_paths(attack_record_filename, result_counter_filename, output_dir):
         user_input = input('Output directory not empty: ' + output_dir + '\nProceed? [y/N]')
         if (user_input != 'y'): sys.exit('Exiting')
 
-def test_image(img_path, truth_file, detector_dict, detector_name, iou_cutoff_value, tunnel_dict, output_dir):
+def test_image(img_path, detector_dict, detector_name, tunnel_dict):
     """
     Run quality tests/checks on an input image and draw the image with true and found face boxes
 
@@ -122,12 +122,9 @@ def test_image(img_path, truth_file, detector_dict, detector_name, iou_cutoff_va
         truth_file: the path to the Wider-Face truth file
         detector_dict: a dictionary of detector_name:face_detector pairs
         detector_name: the specific detector you're studying from detector_dict
-        iou_cutoff_value: the IoU value below which two face boxes are considered a mismatch
         tunnel_dict: a dictionary for counting how many images pass/fail a given quality requirement
-        output_dir: a path to a directory for writing the final image
     Returns:
         image_labels: an ImageLabels object with truth and found boxes already calculated
-        truth_iou_no_noise: the IoU between the found face and truth face before applying any noise
     """
 
     def quality_error(error_text, counter_name, tunnel_dict):
@@ -152,12 +149,7 @@ def test_image(img_path, truth_file, detector_dict, detector_name, iou_cutoff_va
     if (len(image_labels.found_box_dict[detector_name]) == 0):
         error_str = 'Could not find face prior to noise application, skipping'
         quality_error(error_str,'no_found_faces_count',tunnel_dict)
-    # true_box = image_labels.found_box_dict[0]
-    # truth_iou_no_noise = true_box.iou(image_labels.found_box_dict[detector_name][0])
-    # if (truth_iou_no_noise < iou_cutoff_value):
-    #     error_str = 'Found a face, but match to truth poor (IoU < ' + str(iou_cutoff_value) + ')'
-    #     quality_error(error_str, 'no_found_faces_count', tunnel_dict)
-    # image_labels.draw_images(output_dir)
+
     return image_labels
 
 
