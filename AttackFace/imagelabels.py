@@ -80,10 +80,4 @@ class ImageLabels:
         self.found_box_dict = found_box_dict
         return self
       
-    def delete_drawn_images(self):
-        """
-        Delete all drawn images and set self.drawn_images to []
-        """
-        for image in self.draw_images:
-            os.remove(image)
-        self.draw_images = []    
+
