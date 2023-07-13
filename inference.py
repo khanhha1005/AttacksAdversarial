@@ -116,8 +116,7 @@ if __name__ == "__main__":
                 if (attack_success_count / attack_fail_count < attack_success_freq_threshold):
                     print(str(attack_success_count) + '/' + str(attack_fail_count) 
                             + ' attacks succeeded with epsilon=' + str(epsilon)
-                            + '. This is below threshold (' + str(attack_success_freq_threshold) 
-                            + '). Continuing...')
+                            + '. Continuing...')
                     epsilon += epsilon_delta
             else: 
                 print('Noise attack failed')
