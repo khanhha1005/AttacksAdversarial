@@ -54,9 +54,7 @@ def create_noisy_image(original_img_path,  output_dir, use_mult_noise=False):
     noise *= 255
     noise = np.asarray(noise).astype(np.uint8)
     file_num = re.findall(r'[0-9]+[0-9]+\.jpg', original_img_path)[0]
-    noise_str = 'multnoise' if (use_mult_noise) else 'addnoise'
-
-    image_file_name = 'unlabeled_'+noise_str+'_eps'+str(epsilon)+'_'+file_num+'.jpg'
+    image_file_name = file_num
     image_file_path = os.path.join(output_dir,image_file_name)
 
     im_pix = Image.fromarray(image_pixels)

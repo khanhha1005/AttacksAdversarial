@@ -57,6 +57,7 @@ if __name__ == "__main__":
             except ValueError as e: 
                 attacks.create_noisy_image(img_path,output_dir)
                 print(e)
+                print("Add Noise to the whole image")
                 continue
             performance_dict = {
                 'img_num':img_num,
