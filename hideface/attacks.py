@@ -20,7 +20,7 @@ class ImgNoisePair():
     def __init__(self,img,noise):
         self.img = img
         self.noise = noise
-def create_noisy_image(original_img_path, epsilon, output_dir, use_mult_noise=False):
+def create_noisy_image(original_img_path,  output_dir, use_mult_noise=False):
     """
     Given a path to an image, create a new image with normally-distributed noise randomly applied
 
@@ -32,6 +32,7 @@ def create_noisy_image(original_img_path, epsilon, output_dir, use_mult_noise=Fa
     Returns:
         image_file_path: the path to the output image you just created
     """
+    epsilon = np.random.choice([176,112,16,32,224,48,64,96])
     if (not os.path.isfile(original_img_path)):
         sys.exit('Bad input image path: ' + original_img_path)
     if (not os.path.exists(output_dir)): os.makedirs(output_dir)
