@@ -79,7 +79,6 @@ if __name__ == "__main__":
                     continue
                 attack_success_count = 0
                 attack_fail_count = 0
-                # truth_iou_noise_avg = 0
                 for img_pair in image_noise_pairs:
                     attacked_img = img_pair.img
                     noise_img = img_pair.noise
@@ -101,7 +100,6 @@ if __name__ == "__main__":
                         + '% of the time with epsilon: ' + str(epsilon))
                     tunnel_dict['successful_attack'] += 1
                     performance_dict['epsilon'] = epsilon
-                    # performance_dict['truth_iou_noise_avg'] = truth_iou_noise_avg
                     img = Image.open(image_labels.img_path)
                     img = np.array(img)
                     utils.draw_img_noise_pair_arrays(image_noise_pairs, epsilon, img_num, output_dir)
@@ -122,7 +120,6 @@ if __name__ == "__main__":
                 attacks.create_noisy_image(img_path,output_dir)
                 print("Add Noise to the whole image")
                 performance_dict['epsilon'] = -1
-                # performance_dict['truth_iou_noise_avg'] = -1
                 performance_dict['ssim_avg'] = -1
                 tunnel_dict['fail_count'] += 1
             performance_list.append(performance_dict)
