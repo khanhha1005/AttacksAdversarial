@@ -79,44 +79,7 @@ class ImageLabels:
             found_box_dict.update( {detector_name : found_box_list} )
         self.found_box_dict = found_box_dict
         return self
-    
-
-    
-    def draw_images(self, output_dir, name_str=''):
-        """
-        Draw image for each set of detector labels and append drawn filename to self.drawn_images
-        
-        Args:
-            output_dir: a string giving the path to the desired output directory
-            name_str: an optional string describing the image 
-        """
-        file_num = re.findall(r'[0-9]+[0-9]+\.jpg', self.img_path)[0]
-        if (not os.path.exists(output_dir)): os.makedirs(output_dir)
-        try:
-            image = Image.open(self.img_path).convert("RGB")
-            image.verify() # verify that it is, in fact an image
-        except (IOError, SyntaxError) as e: 
-            print('Input Image Read Error (draw_images): ' + self.img_path)   
-        image = copy.deepcopy(np.array(image))
-        tools.draw_boxes(image,self.true_box_list, (0,0,255))
-        if (len(self.found_box_dict) == 0):
-            holder_str = 'no_detector'
-            if (len(self.true_box_list) == 0): holder_str = holder_str + '_no_truth'
-            if (name_str != ''): holder_str = holder_str + '_' + name_str + '_'
-            filename = output_dir + '/image_'+holder_str+file_num+'.jpg'
-            im = Image.fromarray(image)
-            im.save(filename)
-            self.drawn_images.append(filename)
-        for detector_name, found_box_list in self.found_box_dict.items():
-            image_copy = copy.deepcopy(image)
-            tools.draw_boxes(image_copy, found_box_list, (255,0,0))
-            holder_str = ''
-            if (name_str != ''): holder_str = holder_str + '_' + name_str
-            filename = output_dir + '/image_'+ detector_name + holder_str + '_' + file_num+'.jpg'
-            im = Image.fromarray(image_copy)
-            im.save(filename)
-            self.drawn_images.append(filename) 
-    
+      
     def delete_drawn_images(self):
         """
         Delete all drawn images and set self.drawn_images to []
