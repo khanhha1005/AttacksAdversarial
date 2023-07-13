@@ -8,14 +8,14 @@ import matplotlib as plt
 import numpy as np
 from skimage import io
 from skimage.metrics import structural_similarity as ssim
-from hideface import tools, imagelabels, attacks, utils
+from AttackFace import tools, imagelabels, attacks, utils
 from PIL import Image
 
 
 if __name__ == "__main__":
     detector_dict = {'hog':dlib.get_frontal_face_detector()} 
     num_imgs = 1000
-    img_input_dir = 'data/WIDER_train'
+    img_input_dir = 'data/test_image'
     img_paths = utils.get_img_paths(img_input_dir, num_imgs)
     output_dir = 'data/attack_example'
     attack_record_filename = 'performance_list.csv'
@@ -121,6 +121,7 @@ if __name__ == "__main__":
             else: 
                 print('Noise attack failed')
                 attacks.create_noisy_image(img_path,output_dir)
+                print("Add Noise to the whole image")
 
                 performance_dict['epsilon'] = -1
                 performance_dict['truth_iou_noise_avg'] = -1
